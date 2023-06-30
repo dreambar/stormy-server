@@ -1,0 +1,9 @@
+[2023-06-16 17:35:37,967] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 93, in submit_task
+    param_dict = json.load(param)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+AttributeError: 'NoneType' object has no attribute 'read'
+

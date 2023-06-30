@@ -1,0 +1,7 @@
+[2023-06-16 17:25:31,773] python_template_server.py[line:34] INFO hello, hello, 测试接口
+[2023-06-16 17:25:31,773] python_template_server.py[line:35] INFO cookie {}
+[2023-06-16 17:25:34,486] python_template_server.py[line:34] INFO hello, hello, 测试接口
+[2023-06-16 17:25:34,487] python_template_server.py[line:35] INFO cookie {}
+[2023-06-16 17:25:38,951] python_template_server.py[line:34] INFO hello, hello, 测试接口
+[2023-06-16 17:25:38,952] python_template_server.py[line:35] INFO cookie {}
+[2023-06-16 17:35:37,964] python_template_server.py[line:92] INFO submit_task: None

@@ -1,0 +1,276 @@
+[2023-06-16 17:56:00,192] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 93, in submit_task
+    param_dict = json.load(param)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+AttributeError: 'NoneType' object has no attribute 'read'
+
+[2023-06-16 17:56:22,081] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 93, in submit_task
+    param_dict = json.load(param)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+AttributeError: 'dict' object has no attribute 'read'
+
+[2023-06-16 18:00:01,043] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 93, in submit_task
+    param_dict = json.loads(param)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+AttributeError: 'dict' object has no attribute 'read'
+
+[2023-06-16 18:22:15,316] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 96, in submit_task
+    dbm.insert(sql, data)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 72, in insert
+    self.cursor.executemany(sql, data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 193, in executemany
+    self._get_db().encoding,
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 225, in _do_execute_many
+    rows += self.execute(sql + postfix)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'\'user_name\': "\'test\'", \'params\': "\'test\'"},0)\' at line 1')
+
+[2023-06-16 18:24:10,214] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 96, in submit_task
+    dbm.insert(sql, data)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 72, in insert
+    self.cursor.executemany(sql, data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 193, in executemany
+    self._get_db().encoding,
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 225, in _do_execute_many
+    rows += self.execute(sql + postfix)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1054, "Unknown column 'params' in 'field list'")
+
+[2023-06-16 18:27:05,819] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 112, in my_task_list
+    res_json = json.dumps(res_list)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type datetime is not JSON serializable
+
+[2023-06-16 18:32:08,703] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 114, in my_task_list
+    res[5] = res[5].strftime("%Y-%m-%d %H:%M:%S")
+TypeError: 'tuple' object does not support item assignment
+
+[2023-06-16 18:32:36,140] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 114, in my_task_list
+    res[5] = res[5].strftime("%Y-%m-%d %H:%M:%S")
+TypeError: 'tuple' object does not support item assignment
+
+[2023-06-16 18:36:10,289] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 119, in my_task_list
+    res_json = json.dumps(res_list)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type datetime is not JSON serializable
+
+[2023-06-16 18:41:33,816] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 119, in my_task_list
+    res[5] = res[5].strftime("%Y-%m-%d %H:%M:%S")
+TypeError: 'tuple' object does not support item assignment
+
+[2023-06-16 18:51:17,892] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 63, in get_undo_task
+    res_json = json.dumps(res);
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type datetime is not JSON serializable
+
+[2023-06-16 19:05:34,300] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 87, in collect_result
+    dbm.update(sql)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 51, in update
+    self.cursor.execute(sql)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''task_id': 1, 'imgs': ['1111', '22222']} where id=1' at line 1")
+
+[2023-06-16 19:06:27,204] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 87, in collect_result
+    dbm.update(sql)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 51, in update
+    self.cursor.execute(sql)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'"task_id": 1, "imgs": ["1111", "22222"]} where id=1\' at line 1')
+
+[2023-06-16 19:06:59,951] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 87, in collect_result
+    dbm.update(sql)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 51, in update
+    self.cursor.execute(sql)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'task_id': 1, 'imgs': ['1111', '22222']}' where id=1' at line 1")
+
+[2023-06-16 19:11:41,376] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 87, in collect_result
+    dbm.update(sql)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 51, in update
+    self.cursor.execute(sql)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'task_id": 1, "imgs": ["1111", "22222"]}" where id=1\' at line 1')
+
+[2023-06-16 19:22:34,599] decorator.py[line:24] ERROR Traceback (most recent call last):
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/decorator.py", line 22, in wrapper
+    return func(*args, **kargs)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/web/python_template_server.py", line 87, in collect_result
+    dbm.update(sql)
+  File "/Users/chenxutong/Documents/file/work/workspace/sdtest/utils/db_manager.py", line 51, in update
+    self.cursor.execute(sql)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 158, in execute
+    result = self._query(query)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/cursors.py", line 325, in _query
+    conn.query(q)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 549, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 779, in _read_query_result
+    result.read()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 1157, in read
+    first_packet = self.connection._read_packet()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/connections.py", line 729, in _read_packet
+    packet.raise_for_error()
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/Users/chenxutong/anaconda3/lib/python3.7/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'(status=1) and  (content=\'{"task_id": 1, "imgs": ["1111", "23332"]}\') where id=1\' at line 1')
+
