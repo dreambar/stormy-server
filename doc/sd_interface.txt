@@ -1,0 +1,84 @@
+图片生成的界面
+
+接口1：生成图像
+url: /vision/submitTask
+{
+	"user_name": "mmm",
+	"params": {
+		"pos_prompt": "xxxxxxxxxxxxxxxxxx",
+		"neg_prompt": "fffffffffffffffff",
+		"style": "sss",
+		"cfg": 7,
+		"clip_skip": 2,
+		"width": 512,
+		"height": 512,
+		"seed": -1,
+		"step": 20
+	}
+}
+{
+    "status":0,
+    "msg":"success",
+    "data":{}
+}
+
+
+接口2：查询任务返回图片
+url: /vision/getTaskResult
+{
+    "user_name": "nnn"
+}
+{
+    "status":0,
+    "msg":"success",
+    "data":{
+        "img":"url-------------"
+    }
+}
+
+接口3：我的任务
+url: /vision/myTaskList
+{
+    "user_name": "nnn"
+}
+{
+    "status":0,
+    "msg":"success",
+    "data":【
+    {
+        "user_name":"xxx",
+        "create_time":"1111-11-11 12:21:21",
+        "status":0,
+        "pos_prompt":"ssssssss",
+        "neg_prompt":"fdfdfdfd",
+        "style":"1111",
+        "img":"url------d-fdfdfdfdf"
+    }
+    】
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
