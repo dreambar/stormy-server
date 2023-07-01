@@ -1,0 +1,10 @@
+CREATE TABLE `sd_task` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `user_name` varchar(60) NOT NULL COMMENT '用户名',
+  `param` text,
+  `content` varchar(500) NOT NULL DEFAULT '' COMMENT '内容',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态 0待执行， 1执行中, 2已完成 -1执行失败',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='sd任务表'
