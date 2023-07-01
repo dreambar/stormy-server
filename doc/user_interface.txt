@@ -1,34 +1,47 @@
+登陆
 /user/login
 params:
     {
-        user_name -> string
-        password -> string
+        "user_name": "test@163.com",
+        "password": "111222"
     }
 return:
     {
-        flag -> bool
-        msg -> string
+        "status":0,
+        "msg":"success",
+        "data": {
+            "flag": true
+        }
     }
 
-
-/user/send_email_code
+邮箱验证
+/user/verify_email_code
 params:
     {
-       email -> string
+       "email": "test@163.com"
     }
 return:
     {
-       code -> string
+        "status":0,
+        "msg":"success",
+        "data": {
+            "code": "871536"
+        }
     }
 
+注册
 /user/register
 params:
     {
-        user_name -> string
-        password -> string
+        "user_name": "test@163.com"
+        "password": "123456"
     }
 return:
     {
-        flag -> bool
-        msg -> string
+        "status":0,
+        "msg":"success",
+        "data": {
+            "flag": false,
+            "msg": "邮箱已被注册"
+        }
     }
