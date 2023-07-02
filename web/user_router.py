@@ -6,8 +6,6 @@ from service.user_service import *
 import requests
 import json
 
-session_obj = requests.session()
-
 logger = get_logger('./log/server.log')
 
 user_router = Blueprint('user_router', __name__, template_folder='templates')
@@ -19,15 +17,19 @@ def login():
     param_dict = request.get_json()
     logger.info("login params: {}".format(param_dict))
     user_name = param_dict['user_name']
-    passwd = param_dict['passwd']
+    passwd = param_dict['w']
     status, msg = user_login(user_name, passwd)
 
     logger.info("user_name: {} login: {}".format(user_name, status))
-    session_obj.cookies.set("Name", user_name)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "msg": msg}}),
+    resp = Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "msg": msg}}),
                     mimetype='application/json',
                     status=200)
+    resp.headers["Content-Type"] = "application/json;chartset=UTF-8"  # 设置响应头
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'  # 如果有其它方法（delete,put等），断续添加
+    resp.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+    resp.set_cookie('Name', user_name, max_age=None)
 
 
 @user_router.route('/user/register', methods=['GET', 'POST'])
