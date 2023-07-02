@@ -31,6 +31,8 @@ def login():
     resp.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     resp.set_cookie('Name', user_name, max_age=None)
 
+    return resp
+
 
 @user_router.route('/user/register', methods=['GET', 'POST'])
 @web_exception_handler
