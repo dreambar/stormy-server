@@ -1,2 +1,9 @@
-[2023-07-01 23:11:46,469] python_template_server.py[line:53] INFO hello, hello, 测试接口
-[2023-07-01 23:11:46,474] python_template_server.py[line:54] INFO cookie ImmutableMultiDict([])
+[2023-07-02 18:12:09,468] sd_router.py[line:86] INFO submit_task: {'user_name': 'test', 'params': {'pos_prompt': 'ddddddddd'}}
+[2023-07-02 18:12:09,469] sd_router.py[line:89] INFO 用户验证结果:True, 
+[2023-07-02 18:12:09,469] sd_router.py[line:95] INFO submit_task_sql: [['test', '{"user_name": "test", "params": {"pos_prompt": "ddddddddd"}}', 0]]
+[2023-07-02 18:16:52,445] sd_router.py[line:87] INFO submit_task: {'user_name': 'test', 'params': {'pos_prompt': 'ddddddddd'}}
+[2023-07-02 18:16:52,445] sd_router.py[line:90] INFO 用户验证结果:True, 
+[2023-07-02 18:16:52,445] sd_router.py[line:96] INFO submit_task_sql: [['test', '{"user_name": "test", "params": {"pos_prompt": "ddddddddd"}}', 0]]
+[2023-07-02 18:17:42,835] sd_router.py[line:87] INFO submit_task: {'user_name': 'test', 'params': {'pos_prompt': 'ddddddddd'}}
+[2023-07-02 18:17:42,835] sd_router.py[line:90] INFO 用户验证结果:True, 
+[2023-07-02 18:17:42,835] sd_router.py[line:96] INFO submit_task_sql: [['test', '{"user_name": "test", "params": {"pos_prompt": "ddddddddd"}}', 0]]
