@@ -1,4 +1,5 @@
 from utils.db_manager import dbm
+import json
 
 
 sql_dict = {
@@ -12,6 +13,21 @@ sql_dict = {
     "get_undo_task":"select * from sd_task where status=0 order by id limit 1",
     "my_last_task":"select * from sd_task where user_name='{}' order by id desc limit 1"
 }
+
+##这个部分后续check cookie
+def check_username(user_name):
+
+    # if user_name == "":
+    #     return False, '用户不存在，请先注册'
+    # res1 = dbm.query(sql_dict["has_user"].format(user_name))
+    # logger.info("user_true_check:{}".format(res1))
+    # if len(res1) == 0:
+    #     return False, '用户不存在，请先注册'
+    # res2 = dbm.query(sql_dict["user_used_count"].format(user_name))
+    # logger.info("user_num_check:{}".format(res2))
+    # if res2[0][0] >= 20:
+    #     return False, '您所使用的用户，今日使用次数已达上限20次, 如需大量使用请联系管理员aistormy2049@gmail.com'
+    return True, ""
 
 def get_undo_task_service():
     res_list = dbm.query(sql_dict["get_undo_task"])
@@ -32,3 +48,12 @@ def collect_result_service(file, task_id):
     image_url = f"http://aistormy.com/vision/{file.filename}"
     # logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
     dbm.update(sql_dict["submit_result"].format(task_id, image_url))
+
+
+def submit_task_service(user_name, param_dict):
+    data = [[user_name, json.dumps(param_dict, ensure_ascii=False), 0]]
+    # logger.info("submit_task_sql: {}".format(data))
+    dbm.insert(sql_dict["submit_task"], data)
+    res_list = dbm.query(sql_dict["my_last_task"].format(user_name))
+    task_id = res_list[0][0]
+    return task_id

@@ -54,20 +54,7 @@ def collect_result():
                     status=200)
 
 
-##这个部分后续check cookie
-def check_username(user_name):
 
-    # if user_name == "":
-    #     return False, '用户不存在，请先注册'
-    # res1 = dbm.query(sql_dict["has_user"].format(user_name))
-    # logger.info("user_true_check:{}".format(res1))
-    # if len(res1) == 0:
-    #     return False, '用户不存在，请先注册'
-    # res2 = dbm.query(sql_dict["user_used_count"].format(user_name))
-    # logger.info("user_num_check:{}".format(res2))
-    # if res2[0][0] >= 20:
-    #     return False, '您所使用的用户，今日使用次数已达上限20次, 如需大量使用请联系管理员aistormy2049@gmail.com'
-    return True, ""
 
 
 @sd_router.route('/vision/submitTask', methods=['POST', 'GET'])
@@ -76,17 +63,13 @@ def submit_task():
     param_dict = request.get_json()
     logger.info("submit_task: {}".format(param_dict))
     user_name = param_dict['user_name']
-    isOk, msg = check_username(user_name)
+    isOk, msg = vision_service.check_username(user_name)
     logger.info("用户验证结果:{}, {}".format(isOk, msg))
     if not isOk:
         return Response(json.dumps({'msg': msg, 'status': 1, 'data': {}}, ensure_ascii=False),
                         mimetype='application/json',
                         status=200)
-    data = [[user_name, json.dumps(param_dict, ensure_ascii=False), 0]]
-    logger.info("submit_task_sql: {}".format(data))
-    dbm.insert(sql_dict["submit_task"], data)
-    res_list = dbm.query(sql_dict["my_last_task"].format(user_name))
-    task_id = res_list[0][0]
+    task_id = vision_service.submit_task_service(user_name, param_dict)
     return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"task_id":task_id}}, ensure_ascii=False), mimetype='application/json',
                     status=200)
 
@@ -124,8 +107,16 @@ def my_task_list():
     res_list = dbm.query(sql_dict["task_list"].format(user_name))
     res_list_p = []
     for res in res_list:
-        res_p = {"task_id":res[0], "user_name": res[1], "param":res[2], "content": res[3], "status":res[4],"update_time":res[5].strftime("%Y-%m-%d %H:%M:%S"),
-                 "create_time":res[6].strftime("%Y-%m-%d %H:%M:%S")}
+        res_p = {
+            "task_id":res[0], 
+            "user_name": res[1],
+            "pos_prompt":res[2]["pos_prompt"],
+            "neg_prompt":res[2]["neg_prompt"],
+            "style":res[2]["style"],
+            "img": res[3], 
+            "status":res[4],
+            "create_time":res[6].strftime("%Y-%m-%d %H:%M:%S")
+            }
         res_list_p.append(res_p)
     logger.info("task_list_query_res:{}".format(res_list_p))
     return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False),
