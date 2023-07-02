@@ -6,6 +6,9 @@ from service.user_service import *
 import requests
 import json
 from datetime import datetime
+from service import vision_service
+
+
 
 session_obj = requests.session()
 
@@ -33,17 +36,7 @@ sql_dict = {
 @sd_router.route('/vision/getUndoTask', methods=['POST', 'GET'])
 @web_exception_handler
 def get_undo_task():
-    res_list = dbm.query(sql_dict["get_undo_task"])
-    res_list_p = []
-    ##这里要处理风格和prompt前后对应的部分的逻辑
-    for res in res_list:
-        res_p = [res[0], res[1], res[2], res[3], res[4], res[5].strftime("%Y-%m-%d %H:%M:%S"),
-                 res[6].strftime("%Y-%m-%d %H:%M:%S")]
-        res_list_p.append(res_p)
-    logger.info("undo_task send: {}".format(res_list_p))
-    if len(res_list) != 0:
-        id = res_list[0][0]
-        dbm.update(sql_dict["update_status"].format(1, id))
+    res_list_p = vision_service.get_undo_task_service()
     return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False),
                     mimetype='application/json',
                     status=200)
@@ -55,10 +48,7 @@ def collect_result():
     task_id = request.form['task_id']
     data = request.files
     file = data['image']
-    file.save(f"./static/{file.filename}")
-    image_url = f"http://aistormy.com/vision/{file.filename}"
-    logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
-    dbm.update(sql_dict["submit_result"].format(task_id, image_url))
+    vision_service.collect_result_service(file, task_id)
     return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {}}, ensure_ascii=False),
                     mimetype='application/json',
                     status=200)
@@ -134,8 +124,8 @@ def my_task_list():
     res_list = dbm.query(sql_dict["task_list"].format(user_name))
     res_list_p = []
     for res in res_list:
-        res_p = [res[0], res[1], res[2], res[3], res[4], res[5].strftime("%Y-%m-%d %H:%M:%S"),
-                 res[6].strftime("%Y-%m-%d %H:%M:%S")]
+        res_p = {"task_id":res[0], "user_name": res[1], "param":res[2], "content": res[3], "status":res[4],"update_time":res[5].strftime("%Y-%m-%d %H:%M:%S"),
+                 "create_time":res[6].strftime("%Y-%m-%d %H:%M:%S")}
         res_list_p.append(res_p)
     logger.info("task_list_query_res:{}".format(res_list_p))
     return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False),
