@@ -91,7 +91,7 @@ class DBManager:
 
 host = '127.0.0.1'
 port = 3306
-user = 'wordpress'
+user = 'aistormy'
 password = 'wordpress'
 database = 'wordpress'
 charset = 'utf8'

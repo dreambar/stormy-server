@@ -13,7 +13,7 @@ sys.path.append('.')
 from utils.log import get_logger
 from utils.decorator import web_exception_handler
 from utils.db_manager import DBManager
-from user_router import user_router
+from web.user_router import user_router
 from utils.db_manager import dbm
 
 # logger
@@ -35,8 +35,6 @@ charset = 'utf8'
 # password = 'wordpress'
 # database = 'aistormy'
 # charset = 'utf8'
-
-dbm = DBManager(host=host,port=port,user=user,password=password,database=database,charset=charset)
 
 sql_dict = {
     "update_status":"update sd_task set status={} where id={}",
