@@ -25,6 +25,7 @@ return:
         "status":0,
         "msg":"success",
         "data": {
+            "flag": true
             "code": "871536"
         }
     }
