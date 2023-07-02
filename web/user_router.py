@@ -17,7 +17,7 @@ user_router = Blueprint('user_router', __name__, template_folder='templates')
 @web_exception_handler
 def login():
     param_dict = request.get_json()
-    logger.info("verify_email_code params: {}".format(param_dict))
+    logger.info("login params: {}".format(param_dict))
     user_name = param_dict['user_name']
     passwd = param_dict['passwd']
     status, msg = user_login(user_name, passwd)
@@ -34,7 +34,7 @@ def login():
 @web_exception_handler
 def register():
     param_dict = request.get_json()
-    logger.info("verify_email_code params: {}".format(param_dict))
+    logger.info("register params: {}".format(param_dict))
     user_name = param_dict['user_name']
     passwd = param_dict['passwd']
     email = param_dict["email"]
