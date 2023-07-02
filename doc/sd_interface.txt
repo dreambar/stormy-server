@@ -26,7 +26,8 @@ url: /vision/submitTask
 接口2：查询任务返回图片
 url: /vision/getTaskResult
 {
-    "user_name": "nnn"
+    "user_name": "nnn",
+    "task_id":12
 }
 {
     "status":0,
