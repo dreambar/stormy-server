@@ -91,9 +91,9 @@ class DBManager:
 
 host = '127.0.0.1'
 port = 3306
-user = 'aistormy'
+user = 'wordpress'
 password = 'wordpress'
-database = 'wordpress'
+database = 'aistormy'
 charset = 'utf8'
 
 dbm = DBManager(host=host, port=port, user=user, password=password, database=database, charset=charset)
