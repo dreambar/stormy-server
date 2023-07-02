@@ -22,18 +22,11 @@ logger = get_logger('./log/server.log')
 app = Flask("python-template-server", static_folder='./static', static_url_path='/vision/')
 app.register_blueprint(user_router)
 
-host = '10.253.209.26'
-port = 33006
-user = 'beta'
-password = 'kVkBhpSVa6!3'
-database = 'fangdao_image_server'
-charset = 'utf8'
-
-# host = '127.0.0.1'
-# port = 3306
-# user = 'wordpress'
-# password = 'wordpress'
-# database = 'aistormy'
+# host = '10.253.209.26'
+# port = 33006
+# user = 'beta'
+# password = 'kVkBhpSVa6!3'
+# database = 'fangdao_image_server'
 # charset = 'utf8'
 
 sql_dict = {
