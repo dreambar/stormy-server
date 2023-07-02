@@ -45,7 +45,9 @@ def register():
 @user_router.route('/user/verify_email_code', methods=['GET', 'POST'])
 @web_exception_handler
 def verify_email_code():
-    email = request.form['email']
+    param_dict = request.get_json()
+    logger.info("verify_email_code params: {}".format(param_dict))
+    email = param_dict['email']
 
     status, code = user_verify_email(email)
 
