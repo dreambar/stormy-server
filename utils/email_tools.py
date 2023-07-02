@@ -26,5 +26,5 @@ def send_verify_email(email, code):
     text = MIMEText('verify code: {}'.format(code), 'plain', 'utf-8')
     msg.attach(text)
 
-    con.sendmail('aistormy2049@gmail.com', 'lishundong2009@163.com', msg.as_string())
+    con.sendmail('aistormy2049@gmail.com', email, msg.as_string())
     con.quit()
