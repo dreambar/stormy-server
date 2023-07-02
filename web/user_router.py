@@ -17,7 +17,7 @@ def login():
     param_dict = request.get_json()
     logger.info("login params: {}".format(param_dict))
     user_name = param_dict['user_name']
-    passwd = param_dict['w']
+    passwd = param_dict['passwd']
     status, msg = user_login(user_name, passwd)
 
     logger.info("user_name: {} login: {}".format(user_name, status))
