@@ -14,6 +14,7 @@ from utils.log import get_logger
 from utils.decorator import web_exception_handler
 from utils.db_manager import DBManager
 from user_router import user_router
+from utils.db_manager import dbm
 
 # logger
 logger = get_logger('./log/server.log')
@@ -27,15 +28,6 @@ app.register_blueprint(user_router)
 # password = 'kVkBhpSVa6!3'
 # database = 'fangdao_image_server'
 # charset = 'utf8'
-
-host = '127.0.0.1'
-port = 3306
-user = 'wordpress'
-password = 'wordpress'
-database = 'wordpress'
-charset = 'utf8'
-
-dbm = DBManager(host=host, port=port, user=user, password=password, database=database, charset=charset)
 
 sql_dict = {
     "update_status": "update sd_task set status={} where id={}",

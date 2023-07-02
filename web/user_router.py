@@ -18,11 +18,13 @@ user_router = Blueprint('user_router', __name__, template_folder='templates')
 def login():
     user_name = request.form['user_name']
     passwd = request.form['passwd']
-    f = user_login(user_name, passwd)
-    logger.info("user_name: {} login: {}".format(user_name, f))
+    status, msg = user_login(user_name, passwd)
+
+    logger.info("user_name: {} login: {}".format(user_name, status))
     session_obj.cookies.set("Name", user_name)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"flag": f}}), mimetype='application/json',
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "msg": msg}}),
+                    mimetype='application/json',
                     status=200)
 
 
@@ -33,9 +35,9 @@ def register():
     passwd = request.form['passwd']
     email = requests.form["email"]
 
-    f, msg = user_register(user_name, passwd, email)
+    status, msg = user_register(user_name, passwd, email)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"flag": f, "msg": msg}}),
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "msg": msg}}),
                     mimetype='application/json',
                     status=200)
 
@@ -45,8 +47,8 @@ def register():
 def verify_email_code():
     email = request.form['email']
 
-    f, code = user_verify_email(email)
+    status, code = user_verify_email(email)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"flag": f, "code": code}}),
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "code": code}}),
                     mimetype='application/json',
                     status=200)
