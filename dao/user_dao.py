@@ -18,7 +18,7 @@ def user_login_check(user_name, passwd):
 
 
 def user_register_add(user_name, passwd, email):
-    insert = "insert into user_info('user_name', 'passwd', 'email') values(%s, %s, %s)"
+    insert = "insert into user_info(user_name, passwd, email) values(%s, %s, %s)"
     dbm.insert(insert, [[user_name, passwd, email]])
 
 
