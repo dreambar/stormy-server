@@ -25,10 +25,10 @@ def login():
     resp = Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "msg": msg}}),
                     mimetype='application/json',
                     status=200)
-    resp.headers["Content-Type"] = "application/json;chartset=UTF-8"  # 设置响应头
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'  # 如果有其它方法（delete,put等），断续添加
-    resp.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+    # resp.headers["Content-Type"] = "application/json;chartset=UTF-8"  # 设置响应头
+    # resp.headers['Access-Control-Allow-Origin'] = '*'
+    # resp.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'  # 如果有其它方法（delete,put等），断续添加
+    # resp.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
     resp.set_cookie('Name', user_name, max_age=None)
 
     return resp
