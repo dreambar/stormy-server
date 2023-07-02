@@ -53,8 +53,8 @@ def verify_email_code():
     logger.info("verify_email_code params: {}".format(param_dict))
     email = param_dict['email']
 
-    status, code = user_verify_email(email)
+    status, msg, code = user_verify_email(email)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "code": code}}),
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"status": status, "code": code, "msg": msg}}),
                     mimetype='application/json',
                     status=200)

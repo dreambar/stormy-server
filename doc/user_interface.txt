@@ -26,7 +26,8 @@ return:
         "status":0,
         "msg":"success",
         "data": {
-            "status": 0, (0 -> 正常, 1 -> 邮箱已被使用)
+            "status": 0, (0 -> 正常, 1 -> 邮箱已被使用),
+            "msg": "",
             "code": "871536"
         }
     }
