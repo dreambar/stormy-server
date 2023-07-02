@@ -57,3 +57,24 @@ def submit_task_service(user_name, param_dict):
     res_list = dbm.query(sql_dict["my_last_task"].format(user_name))
     task_id = res_list[0][0]
     return task_id
+
+
+def my_task_list_service(user_name):
+    res_list = dbm.query(sql_dict["task_list"].format(user_name))
+    res_list_p = []
+    for res in res_list:
+        res_p = {
+            "task_id":res[0], 
+            "user_name": res[1],
+            "pos_prompt":json.loads(res[2])["pos_prompt"],
+            "neg_prompt":json.loads(res[2])["neg_prompt"],
+            "style":res[2]["style"],
+            "img": res[3], 
+            "status":res[4],
+            "create_time":res[6].strftime("%Y-%m-%d %H:%M:%S")
+            }
+        res_list_p.append(res_p)
+    return res_list_p
+
+def get_task_result_service(user_name, task_id):
+    return dbm.query(sql_dict["task_query"].format(user_name, task_id))
