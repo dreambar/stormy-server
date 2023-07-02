@@ -7,3 +7,6 @@
 [2023-07-02 18:17:42,835] sd_router.py[line:87] INFO submit_task: {'user_name': 'test', 'params': {'pos_prompt': 'ddddddddd'}}
 [2023-07-02 18:17:42,835] sd_router.py[line:90] INFO 用户验证结果:True, 
 [2023-07-02 18:17:42,835] sd_router.py[line:96] INFO submit_task_sql: [['test', '{"user_name": "test", "params": {"pos_prompt": "ddddddddd"}}', 0]]
+[2023-07-02 23:53:35,521] sd_router.py[line:84] INFO task_list_query: {'user_name': 'test', 'task_id': 5}
+[2023-07-02 23:54:59,504] sd_router.py[line:84] INFO task_list_query: {'user_name': 'test', 'task_id': 5}
+[2023-07-02 23:57:48,233] sd_router.py[line:84] INFO task_list_query: {'user_name': 'test', 'task_id': 5}

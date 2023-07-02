@@ -89,19 +89,19 @@ class DBManager:
         return exist
 
 
-host = '127.0.0.1'
-port = 3306
-user = 'wordpress'
-password = 'wordpress'
-database = 'aistormy'
-charset = 'utf8'
-
-
-# host = '10.253.209.26'
-# port = 33006
-# user = 'beta'
-# password = 'kVkBhpSVa6!3'
-# database = 'fangdao_image_server'
+# host = '127.0.0.1'
+# port = 3306
+# user = 'wordpress'
+# password = 'wordpress'
+# database = 'aistormy'
 # charset = 'utf8'
+
+
+host = '10.253.209.26'
+port = 33006
+user = 'beta'
+password = 'kVkBhpSVa6!3'
+database = 'fangdao_image_server'
+charset = 'utf8'
 
 dbm = DBManager(host=host, port=port, user=user, password=password, database=database, charset=charset)

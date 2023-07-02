@@ -63,13 +63,13 @@ def my_task_list_service(user_name):
     res_list = dbm.query(sql_dict["task_list"].format(user_name))
     res_list_p = []
     for res in res_list:
-        params = json.loads(json.loads(res[2])["params"])
+        params = json.loads(res[2])["params"]
         res_p = {
             "task_id":res[0], 
             "user_name": res[1],
             "pos_prompt":params["pos_prompt"],
             "neg_prompt":params["neg_prompt"],
-            "style":res[2]["style"],
+            "style":params["style"],
             "img": res[3], 
             "status":res[4],
             "create_time":res[6].strftime("%Y-%m-%d %H:%M:%S")
