@@ -10,7 +10,8 @@ return:
         "status":0,
         "msg":"success",
         "data": {
-            "flag": true
+            "status": 0, (0 -> 正常, 1 -> 账号不存在, 2 -> 密码不对)
+            "msg": "success"
         }
     }
 
@@ -25,6 +26,8 @@ return:
         "status":0,
         "msg":"success",
         "data": {
+            "status": 0, (0 -> 正常, 1 -> 邮箱已被使用),
+            "msg": "",
             "code": "871536"
         }
     }
@@ -33,15 +36,16 @@ return:
 /user/register
 params:
     {
-        "user_name": "test@163.com"
-        "password": "123456"
+        "user_name": "test",
+        "password": "123456",
+        "email": "test@163.com"
     }
 return:
     {
         "status":0,
         "msg":"success",
         "data": {
-            "flag": false,
-            "msg": "邮箱已被注册"
+            "status": 0, (0 -> 正常, 1 -> 账号已被注册)
+            "msg": ""
         }
     }

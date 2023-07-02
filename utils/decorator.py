@@ -50,3 +50,11 @@ def exception_handler(func):
             logger.error(traceback.format_exc())
 
     return wrapper
+
+
+def check_login_handler(func):
+    @wraps(func)
+    def wrapper(*args, **kargs):
+        pass
+
+    return wrapper

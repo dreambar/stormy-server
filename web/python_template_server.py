@@ -8,14 +8,19 @@ import sys
 
 from flask import Flask, Response, request
 from datetime import datetime
+
 sys.path.append('.')
 from utils.log import get_logger
 from utils.decorator import web_exception_handler
 from utils.db_manager import DBManager
+from user_router import user_router
+from utils.db_manager import dbm
+
 # logger
 logger = get_logger('./log/server.log')
 
 app = Flask("python-template-server", static_folder='./static', static_url_path='/vision/')
+app.register_blueprint(user_router)
 
 host = '10.253.209.26'
 port = 33006
@@ -28,7 +33,7 @@ charset = 'utf8'
 # port = 3306
 # user = 'wordpress'
 # password = 'wordpress'
-# database = 'wordpress'
+# database = 'aistormy'
 # charset = 'utf8'
 
 dbm = DBManager(host=host,port=port,user=user,password=password,database=database,charset=charset)
@@ -45,11 +50,9 @@ sql_dict = {
 }
 
 
-
 @app.route('/vision/python/template/hello', methods=['GET', 'POST'])
 @web_exception_handler
 def hello():
-
     logger.info('hello, hello, 测试接口')
     logger.info('cookie {}'.format(request.cookies))
 
@@ -58,7 +61,7 @@ def hello():
 
 @app.route('/get_cookie')
 def get_cookie():
-    name=request.cookies.get('Name')
+    name = request.cookies.get('Name')
     return name
 
 
@@ -76,7 +79,8 @@ def get_undo_task():
     if len(res_list) != 0:
         id = res_list[0][0]
         dbm.update(sql_dict["update_status"].format(1, id))
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False), mimetype='application/json',
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False),
+                    mimetype='application/json',
                     status=200)
 
 
@@ -90,7 +94,8 @@ def collect_result():
     image_url = f"http://aistormy.com/vision/{file.filename}"
     logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
     dbm.update(sql_dict["submit_result"].format(task_id, image_url))
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {}}, ensure_ascii=False), mimetype='application/json',
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {}}, ensure_ascii=False),
+                    mimetype='application/json',
                     status=200)
 
 
@@ -142,11 +147,13 @@ def get_task_result():
         return Response(json.dumps({'msg': '任务不存在', 'status': 2, 'data': {}}, ensure_ascii=False), mimetype='application/json',
                     status=200)
     if res_list[0][4] == 0 or res_list[0][4] == 1:
-        return Response(json.dumps({'msg': '您的任务在执行中，请耐心等待', 'status': 1, 'data': {}}, ensure_ascii=False), mimetype='application/json',
-                    status=200)
+        return Response(json.dumps({'msg': '您的任务在执行中，请耐心等待', 'status': 1, 'data': {}}, ensure_ascii=False),
+                        mimetype='application/json',
+                        status=200)
     if res_list[0][4] == -1 or datetime.now() - res_list[0][6] > 600:
-        return Response(json.dumps({'msg': '您的任务执行失败或已超时', 'status': 2, 'data': {}}, ensure_ascii=False), mimetype='application/json',
-                    status=200)
+        return Response(json.dumps({'msg': '您的任务执行失败或已超时', 'status': 2, 'data': {}}, ensure_ascii=False),
+                        mimetype='application/json',
+                        status=200)
     if res_list[0][4] == 2:
         return Response(json.dumps({'msg': '任务完成', 'status': 0, 'data': {'img': res_list[0][3]}}, ensure_ascii=False), mimetype='application/json',
                     status=200)
@@ -161,13 +168,13 @@ def my_task_list():
     res_list = dbm.query(sql_dict["task_list"].format(user_name))
     res_list_p = []
     for res in res_list:
-        res_p = [res[0], res[1], res[2], res[3], res[4], res[5].strftime("%Y-%m-%d %H:%M:%S"), res[6].strftime("%Y-%m-%d %H:%M:%S")]
+        res_p = [res[0], res[1], res[2], res[3], res[4], res[5].strftime("%Y-%m-%d %H:%M:%S"),
+                 res[6].strftime("%Y-%m-%d %H:%M:%S")]
         res_list_p.append(res_p)
     logger.info("task_list_query_res:{}".format(res_list_p))
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False), mimetype='application/json', status=200)
-
-
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': res_list_p}, ensure_ascii=False),
+                    mimetype='application/json', status=200)
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=11111)
+    app.run(host='127.0.0.1', port=22222)
