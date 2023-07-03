@@ -88,7 +88,8 @@ class ChatDataSourceStrategy:
 
     def fetch_conversation(self, source, user_name, index):
         self.refresh_ttl(user_name, source)
-        logger.info("user_name: {} source: {} fetch_conversation: {}".format(user_name, source, self.chat_conversations))
+        logger.info(
+            "user_name: {} source: {} fetch_conversation: {}".format(user_name, source, self.chat_conversations))
         return self.chat_conversations[user_name][source]["conversation"][: index + 1]
 
     def robot_add_msg(self, source, user_name, msg):
@@ -226,15 +227,19 @@ def chat_send_msg(source, user_name, msg):
 
 
 def chat_receive_msg(source, user_name):
+    logger.info("chat_receive_msg user_name: {} source: {}".format(user_name, source))
     index = chat_task_strategy.fetch_robot_msg_index(source, user_name)
+    logger.info("chat_receive_msg user_name: {} source: {} index: {}".format(user_name, source, index))
     if index == -1:
         return False, ""
 
     next_index, msg = chat_data_source_strategy.fetch_robot_msg(source, user_name, index)
+    logger.info("chat_receive_msg user_name: {} source: {} next_index: {}".format(user_name, source, next_index))
     if next_index == -1:
         return False, msg
 
     chat_task_strategy.set_robot_msg_index(source, user_name, next_index)
+    logger.info("chat_receive_msg user_name: {} source: {} end".format(user_name, source))
 
     return True, msg
 
