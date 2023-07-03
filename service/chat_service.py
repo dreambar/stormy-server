@@ -83,6 +83,7 @@ class ChatDataSourceStrategy:
         while now_index < len(self.chat_conversations[user_name][source]["conversation"]):
             if self.chat_conversations[user_name][source]["conversation"][now_index]["type"] == "robot":
                 return now_index + 1, self.chat_conversations[user_name][source]["conversation"][now_index]["msg"]
+            now_index += 1
 
         return -1, ""
 
