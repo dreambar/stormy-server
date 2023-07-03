@@ -116,7 +116,7 @@ class ChatTaskStrategy:
             try:
                 now_time = time.time()
                 deletes = []
-                for key, before_time in self.user_task_ttls:
+                for key, before_time in self.user_task_ttls.items():
                     if now_time - before_time > 600:
                         deletes.append(key)
 
