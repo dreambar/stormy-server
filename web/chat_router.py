@@ -76,7 +76,7 @@ def fetch_task():
     source = param_dict["source"]
 
     logger.info("fetch_task source: {}".format(source))
-    flag, conversation, task_id = chask(source)
+    flag, conversation, task_id = chat_fetch_task(source)
 
     return Response(json.dumps(
         {'msg': 'success', 'status': 0, 'data': {"flag": flag, "conversation": conversation, "task_id": task_id}}),
