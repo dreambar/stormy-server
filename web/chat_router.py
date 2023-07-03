@@ -27,8 +27,12 @@ def sources():
 @web_exception_handler
 @check_login_handler
 def refresh():
-    source = requests.form["source"]
-    chat_refresh(source)
+    param_dict = request.get_json()
+    source = param_dict["source"]
+    user_name = param_dict["user_name"]
+    logger.info("chat refresh user_name: {} source: {}".format(user_name, source))
+
+    chat_refresh(source, user_name)
     return Response(json.dumps({'msg': 'success', 'status': 0}), mimetype='application/json',
                     status=200)
 
@@ -37,9 +41,11 @@ def refresh():
 @web_exception_handler
 @check_login_handler
 def send_msg():
-    source = requests.form["source"]
-    send_msg = requests.form["send_msg"]
-    user_name = requests.cookies.form["Name"]
+    param_dict = request.get_json()
+    source = param_dict["source"]
+    send_msg = param_dict["send_msg"]
+    user_name = param_dict["user_name"]
+    logger.info("send_msg user_name: {} source: {}".format(user_name, source))
 
     chat_send_msg(source, user_name, send_msg)
 
@@ -51,20 +57,25 @@ def send_msg():
 @web_exception_handler
 @check_login_handler
 def receive_msg():
-    source = requests.form["source"]
-    user_name = requests.cookies.form["Name"]
+    param_dict = request.get_json()
+    user_name = param_dict["user_name"]
+    source = param_dict["source"]
 
-    chat_receive_msg(source, user_name, send_msg)
+    logger.info("receive_msg user_name: {} source: {}".format(user_name, source))
+    f, msg = chat_receive_msg(source, user_name)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {}}), mimetype='application/json',
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"flag": f, "msg": msg}}),
+                    mimetype='application/json',
                     status=200)
 
 
 @chat_router.route('/chat/fetch_task', methods=['GET', 'POST'])
 @web_exception_handler
 def fetch_task():
-    source = requests.form["source"]
+    param_dict = request.get_json()
+    source = param_dict["source"]
 
+    logger.info("fetch_task source: {}".format(source))
     flag, conversation, task_id = chat_fetch_task(source)
 
     return Response(json.dumps(
@@ -75,11 +86,13 @@ def fetch_task():
 
 @chat_router.route('/chat/reply_task', methods=['GET', 'POST'])
 @web_exception_handler
-def fetch_task():
-    source = requests.form["source"]
-    task_id = requests.form["task_id"]
-    recv_msg = requests.form["recv_msg"]
+def reply_task():
+    param_dict = request.get_json()
+    source = param_dict["source"]
+    task_id = param_dict["task_id"]
+    recv_msg = param_dict["recv_msg"]
 
+    logger.info("reply_task source: {} task_id: {}".format(source, task_id))
     chat_reply_task(source, task_id, recv_msg)
 
     return Response(json.dumps(

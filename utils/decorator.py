@@ -55,6 +55,6 @@ def exception_handler(func):
 def check_login_handler(func):
     @wraps(func)
     def wrapper(*args, **kargs):
-        pass
+        return func(*args, **kargs)
 
     return wrapper
