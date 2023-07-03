@@ -88,6 +88,7 @@ class ChatDataSourceStrategy:
 
     def fetch_conversation(self, source, user_name, index):
         self.refresh_ttl(user_name, source)
+        logger.info("fetch_conversation: {}".format(self.chat_conversations))
         return self.chat_conversations[user_name][source]["conversation"][: index + 1]
 
     def robot_add_msg(self, source, user_name, msg):
