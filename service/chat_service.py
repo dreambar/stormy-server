@@ -143,6 +143,7 @@ class ChatTaskStrategy:
         if source not in self.sources_task:
             self.sources_task[source] = []
         self.sources_task[source].append(task_id)
+        logger.info("add_task sources_task: {}".format(self.sources_task))
 
     def delete_task(self, source, user_name):
         self.refresh_ttl(user_name, source)
