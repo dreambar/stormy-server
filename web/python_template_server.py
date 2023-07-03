@@ -24,7 +24,7 @@ logger = get_logger('./log/server.log')
 app = Flask("python-template-server", static_folder='./static', static_url_path='/vision/')
 app.register_blueprint(user_router)
 app.register_blueprint(sd_router)
-# app.register_blueprint(chat_router)
+app.register_blueprint(chat_router)
 
 
 @app.route('/vision/python/template/hello', methods=['GET', 'POST'])
