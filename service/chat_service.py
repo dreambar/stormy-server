@@ -68,6 +68,8 @@ class ChatDataSourceStrategy:
 
         self.chat_conversations[user_name][source]["conversation"].append({"type": "user", "msg": msg})
         self.refresh_ttl(user_name, source)
+        logger.info("user_add_msg user_name: {} source: {} len: {}".format(user_name, source, len(
+            self.chat_conversations[user_name][source]["conversation"])))
 
         return len(self.chat_conversations[user_name][source]) - 1
 
@@ -78,7 +80,7 @@ class ChatDataSourceStrategy:
         self.refresh_ttl(user_name, source)
         now_index = index
         while now_index < len(self.chat_conversations[user_name][source]["conversation"]):
-            if self.chat_conversations[user_name][source][now_index]["type"] == "robot":
+            if self.chat_conversations[user_name][source]["conversation"][now_index]["type"] == "robot":
                 return now_index + 1, self.chat_conversations[user_name][source]["conversation"][now_index]["msg"]
 
         return -1, ""
