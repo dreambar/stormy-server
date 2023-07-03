@@ -77,6 +77,7 @@ class ChatDataSourceStrategy:
     def fetch_robot_msg(self, source, user_name, index):
         if user_name not in self.chat_conversations or source not in self.chat_conversations[user_name]:
             return -1, ""
+        logger.info("fetch_robot_msg chat_conversations: {}".format(self.chat_conversations))
 
         self.refresh_ttl(user_name, source)
         now_index = index
