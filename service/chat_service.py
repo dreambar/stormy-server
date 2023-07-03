@@ -173,6 +173,9 @@ class ChatTaskStrategy:
         self.user_tasks[user_name + "_" + source]["robot_msg_index"] = index
 
     def get_new_task(self, source):
+        if source not in self.sources_task:
+            return False, None, None, None, None
+
         logger.info("get_new_task: {}".format(self.sources_task))
         if len(self.sources_task[source]) == 0:
             return False, None, None, None, None
