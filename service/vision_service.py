@@ -81,7 +81,7 @@ def style_add_detail(params):
 def style_add(res_list):
     res_list_p = []
     for res in res_list:
-        params = style_add_detail(json.loads(res[2]))
+        params = style_add_detail(json.loads(res[2])["params"])
         res_p = [res[0], res[1], json.dumps(params, ensure_ascii=False), res[3], res[4], res[5].strftime("%Y-%m-%d %H:%M:%S"),
                  res[6].strftime("%Y-%m-%d %H:%M:%S")]
         res_list_p.append(res_p)
