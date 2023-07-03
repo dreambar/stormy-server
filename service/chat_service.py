@@ -175,7 +175,7 @@ class ChatTaskStrategy:
         del self.sources_task[source][0]
         logger.info("get_new_task task_id: {}".format(task_id))
 
-        return True, task_info["user_name"], task_info["source"], task_info["user_index"], task_id
+        return True, task_info["user_name"], task_info["source"], task_info["index"], task_id
 
     def finish_task(self, task_id):
         if task_id not in self.tasks:
