@@ -251,6 +251,7 @@ def chat_fetch_task(source):
 
 def chat_reply_task(source, task_id, recv_msg):
     f, source, user_name = chat_task_strategy.fetch_task_info(task_id)
+    logger.info("chat_reply_task task_id: {} source: {} user_name: {}".format(task_id, source, user_name))
     if not f:
         return
 
