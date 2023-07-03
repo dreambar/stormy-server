@@ -99,7 +99,7 @@ class ChatDataSourceStrategy:
             return
 
         self.refresh_ttl(user_name, source)
-        self.chat_conversations[user_name][source].append({"type": "robot", "msg": msg})
+        self.chat_conversations[user_name][source]["conversation"].append({"type": "robot", "msg": msg})
         logger.info("robot_add_msg chat_conversations: {}".format(self.chat_conversations))
 
 
