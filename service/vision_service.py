@@ -99,7 +99,9 @@ def collect_result_service(file, task_id):
     file.save(f"./static/{file.filename}")
     image_url = f"http://aistormy.com/vision/{file.filename}"
     img = Image.open(f"./static/{file.filename}")
-    img.save(f"./static/s_{file.filename}", quality = 20)
+    img = img.convert('RGB')
+    fn = file.filename.split('.')[0] + ".jpg"
+    img.save(f"./static/{fn}", quality= 50)
 
     # logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
     dbm.update(sql_dict["submit_result"].format(image_url, task_id))
