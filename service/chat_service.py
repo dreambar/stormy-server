@@ -87,7 +87,7 @@ class ChatDataSourceStrategy:
 
     def fetch_conversation(self, source, user_name, index):
         self.refresh_ttl(user_name, source)
-        return self.chat_conversations[user_name][source][: index + 1]
+        return self.chat_conversations[user_name][source]["conversation"][: index + 1]
 
     def robot_add_msg(self, source, user_name, msg):
         if user_name not in self.chat_conversations or source not in self.chat_conversations[user_name]:
