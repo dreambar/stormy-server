@@ -130,7 +130,7 @@ class ChatTaskStrategy:
                 logger.error(e)
 
     def add_task(self, source, user_name, msg_index):
-        task_id = uuid.uuid1()
+        task_id = str(uuid.uuid1())
         self.tasks[task_id] = {"user_name": user_name, "source": source, "user_index": msg_index, "robot_msg_index": 0}
         self.user_tasks[user_name + "_" + source] = task_id
 
