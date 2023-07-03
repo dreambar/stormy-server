@@ -22,7 +22,7 @@ class ChatDataSourceStrategy:
                     delete_flag = True
 
                     sources_detect = []
-                    for source, conversation_info in source_dicts:
+                    for source, conversation_info in source_dicts.items():
                         conversation_time = conversation_info["time"]
                         if now_time - conversation_time > 600:
                             sources_detect.append(source)
