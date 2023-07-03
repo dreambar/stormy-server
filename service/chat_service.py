@@ -129,19 +129,24 @@ class ChatTaskStrategy:
             except BaseException as e:
                 logger.error(e)
 
-    def add_task(self, source, user_name, msg_index):
+    def add_task(self, source, user_name, index):
+        self.refresh_ttl(user_name, source)
         task_id = str(uuid.uuid1())
-        self.tasks[task_id] = {"user_name": user_name, "source": source, "user_index": msg_index, "robot_msg_index": 0}
-        self.user_tasks[user_name + "_" + source] = task_id
+        self.tasks[task_id] = {"user_name": user_name, "source": source, "index": index}
+        if user_name + "_" + source not in self.user_tasks:
+            self.user_tasks[user_name + "_" + source] = {"task_ids": [task_id], "robot_msg_index": 0}
+        else:
+            self.user_tasks[user_name + "_" + source]["task_ids"].append(task_id)
 
         if source not in self.sources_task:
             self.sources_task[source] = []
         self.sources_task[source].append(task_id)
 
     def delete_task(self, source, user_name):
+        self.refresh_ttl(user_name, source)
         if user_name + "_" + source not in self.user_tasks:
             return
-        task_ids = self.user_tasks[user_name + "_" + source]
+        task_ids = self.user_tasks[user_name + "_" + source]["task_ids"]
         del self.user_tasks[user_name + "_" + source]
 
         for task_id in task_ids:
@@ -164,6 +169,8 @@ class ChatTaskStrategy:
 
         task_id = self.sources_task[source][0]
         task_info = self.tasks[task_id]
+        del self.sources_task[source][0]
+        logger.info("get_new_task task_id: {}".format(task_id))
 
         return True, task_info["user_name"], task_info["source"], task_info["user_index"], task_id
 
@@ -177,8 +184,8 @@ class ChatTaskStrategy:
         if user_name + "_" + source not in self.user_tasks:
             return
 
-        i = self.user_tasks[user_name + "_" + source].index(task_id)
-        del self.user_tasks[user_name + "_" + source][i]
+        i = self.user_tasks[user_name + "_" + source]["task_ids"].index(task_id)
+        del self.user_tasks[user_name + "_" + source]["task_ids"][i]
 
     def fetch_task_info(self, task_id):
         if task_id not in self.tasks:
