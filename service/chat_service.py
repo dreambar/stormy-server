@@ -68,6 +68,8 @@ class ChatDataSourceStrategy:
 
         self.chat_conversations[user_name][source]["conversation"].append({"type": "user", "msg": msg})
         self.refresh_ttl(user_name, source)
+        logger.info("user_add_msg user_name: {} source: {} len: {}".format(user_name, source, len(
+            self.chat_conversations[user_name][source]["conversation"])))
 
         return len(self.chat_conversations[user_name][source]) - 1
 

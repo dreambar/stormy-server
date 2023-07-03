@@ -12,7 +12,7 @@ from functools import wraps
 from flask import Response
 from utils.log import get_logger
 
-logger = get_logger('./log/cost_time.log')
+logger = get_logger('./log/server.log')
 
 
 def web_exception_handler(func):
