@@ -15,6 +15,7 @@ from utils.decorator import web_exception_handler
 from utils.db_manager import DBManager
 from web.user_router import user_router
 from web.sd_router import sd_router
+from web.chat_router import chat_router
 from utils.db_manager import dbm
 
 # logger
@@ -23,7 +24,7 @@ logger = get_logger('./log/server.log')
 app = Flask("python-template-server", static_folder='./static', static_url_path='/vision/')
 app.register_blueprint(user_router)
 app.register_blueprint(sd_router)
-
+app.register_blueprint(chat_router)
 
 
 @app.route('/vision/python/template/hello', methods=['GET', 'POST'])
@@ -35,12 +36,11 @@ def hello():
     print('hello, hello, 测试接口')
     return Response(json.dumps({'msg': 'hello', 'status': 0, 'data': {}}), mimetype='application/json', status=200)
 
+
 @app.route('/get_cookie')
 def get_cookie():
     name = request.cookies.get('Name')
     return name
-
-
 
 
 if __name__ == "__main__":

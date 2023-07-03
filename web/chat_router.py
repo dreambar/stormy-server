@@ -30,6 +30,8 @@ def refresh():
     param_dict = request.get_json()
     source = param_dict["source"]
     user_name = param_dict["user_name"]
+    logger.info("chat refresh user_name: {} source: {}".format(user_name, source))
+
     chat_refresh(source, user_name)
     return Response(json.dumps({'msg': 'success', 'status': 0}), mimetype='application/json',
                     status=200)
@@ -43,6 +45,7 @@ def send_msg():
     source = param_dict["source"]
     send_msg = param_dict["send_msg"]
     user_name = param_dict["user_name"]
+    logger.info("send_msg user_name: {} source: {}".format(user_name, source))
 
     chat_send_msg(source, user_name, send_msg)
 
@@ -58,9 +61,11 @@ def receive_msg():
     user_name = param_dict["user_name"]
     source = param_dict["source"]
 
-    chat_receive_msg(source, user_name, send_msg)
+    logger.info("receive_msg user_name: {} source: {}".format(user_name, source))
+    f, msg = chat_receive_msg(source, user_name)
 
-    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {}}), mimetype='application/json',
+    return Response(json.dumps({'msg': 'success', 'status': 0, 'data': {"flag": f, "msg": msg}}),
+                    mimetype='application/json',
                     status=200)
 
 
@@ -70,6 +75,7 @@ def fetch_task():
     param_dict = request.get_json()
     source = param_dict["source"]
 
+    logger.info("fetch_task source: {}".format(source))
     flag, conversation, task_id = chat_fetch_task(source)
 
     return Response(json.dumps(
@@ -86,6 +92,7 @@ def reply_task():
     task_id = param_dict["task_id"]
     recv_msg = param_dict["recv_msg"]
 
+    logger.info("reply_task source: {} task_id: {}".format(source, task_id))
     chat_reply_task(source, task_id, recv_msg)
 
     return Response(json.dumps(
