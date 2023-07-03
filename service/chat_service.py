@@ -79,9 +79,8 @@ class ChatDataSourceStrategy:
 
         self.refresh_ttl(user_name, source)
         now_index = index
-        logger.info("+++++ {}".format(self.chat_conversations[user_name][source]))
         while now_index < len(self.chat_conversations[user_name][source]["conversation"]):
-            if self.chat_conversations[user_name][source][now_index]["type"] == "robot":
+            if self.chat_conversations[user_name][source]["conversation"][now_index]["type"] == "robot":
                 return now_index + 1, self.chat_conversations[user_name][source]["conversation"][now_index]["msg"]
 
         return -1, ""
