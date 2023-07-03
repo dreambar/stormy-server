@@ -100,6 +100,7 @@ class ChatDataSourceStrategy:
 
         self.refresh_ttl(user_name, source)
         self.chat_conversations[user_name][source].append({"type": "robot", "msg": msg})
+        logger.info("robot_add_msg chat_conversations: {}".format(self.chat_conversations))
 
 
 class ChatTaskStrategy:
@@ -257,10 +258,11 @@ def chat_fetch_task(source):
 
 
 def chat_reply_task(source, task_id, recv_msg):
-    f, source, user_name = chat_task_strategy.fetch_task_info(task_id)
+    f, user_name, source = chat_task_strategy.fetch_task_info(task_id)
     logger.info("chat_reply_task task_id: {} source: {} user_name: {}".format(task_id, source, user_name))
     if not f:
         return
 
     chat_task_strategy.finish_task(task_id)
+    logger.info("chat_reply_task task_id: {} finish_task".format(task_id))
     chat_data_source_strategy.robot_add_msg(source, user_name, recv_msg)
