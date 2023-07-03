@@ -10,6 +10,7 @@ class ChatDataSourceStrategy:
     def __init__(self):
         self.chat_conversations = {}
         self.th = threading.Thread(target=self.run)
+        self.th.start()
 
     def run(self):
         while True:
@@ -103,6 +104,8 @@ class ChatTaskStrategy:
         self.user_tasks = {}
         self.user_task_ttls = {}
         self.sources_task = {}
+        self.th = threading.Thread(target=self.run)
+        self.th.start()
 
     def refresh_ttl(self, user_name, source):
         self.user_task_ttls[user_name + "_" + source] = time.time()
@@ -158,12 +161,14 @@ class ChatTaskStrategy:
             del self.tasks[task_id]
 
     def fetch_robot_msg_index(self, source, user_name):
+        self.refresh_ttl(user_name, source)
         if user_name + "_" + source not in self.user_tasks:
             return 0
 
         return self.user_tasks[user_name + "_" + source]["robot_msg_index"]
 
     def set_robot_msg_index(self, source, user_name, index):
+        self.refresh_ttl(user_name, source)
         self.user_tasks[user_name + "_" + source]["robot_msg_index"] = index
 
     def get_new_task(self, source):
