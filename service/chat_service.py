@@ -203,7 +203,7 @@ class ChatTaskStrategy:
     def fetch_task_info(self, task_id):
         if task_id not in self.tasks:
             return False, "", ""
-        return True, self.user_tasks[task_id]["user_name"], self.user_tasks[task_id]["source"]
+        return True, self.tasks[task_id]["user_name"], self.tasks[task_id]["source"]
 
 
 def init():
