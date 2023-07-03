@@ -34,8 +34,8 @@ class ChatDataSourceStrategy:
                     if delete_flag:
                         user_name_deletes.append(user_name)
 
+                logger.info("ChatTaskStrategy refresh deletes: {}".format(user_name_deletes))
                 for d in user_name_deletes:
-                    logger.info("delete user_name: {}".format(d))
                     del self.chat_conversations[d]
 
                 time.sleep(10)
@@ -114,6 +114,7 @@ class ChatTaskStrategy:
                     if now_time - before_time > 600:
                         deletes.append(key)
 
+                logger.info("ChatTaskStrategy refresh deletes: {}".format(deletes))
                 for d in deletes:
                     del self.user_task_ttls[d]
                     task_ids = self.user_tasks[d]
