@@ -98,8 +98,8 @@ def get_undo_task_service():
 def collect_result_service(file, task_id):
     file.save(f"./static/{file.filename}")
     image_url = f"http://aistormy.com/vision/{file.filename}"
-    ##存缩略图
-    file.save(f"./static/s_{file.filename}", quality = 20)
+    img = Image.open(f"./static/{file.filename}")
+    img.save(f"./static/s_{file.filename}", quality = 20)
 
     # logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
     dbm.update(sql_dict["submit_result"].format(image_url, task_id))
