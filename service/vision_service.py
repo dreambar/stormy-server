@@ -2,12 +2,21 @@ from utils.db_manager import dbm
 import json
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor
-
+from io import BytesIO
 from utils.log import get_logger
+
+import oss2
+import os
+# 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
+auth = oss2.Auth('LTAI5tRAbpW9MNjDDnDAVCsq', '7RguIff46JiTrh43HkULgbXZPiIVqu')
+# yourEndpoint填写Bucket所在地域对应的Endpoint。以华东1（杭州）为例，Endpoint填写为https://oss-cn-hangzhou.aliyuncs.com。
+# 填写Bucket名称。
+bucket = oss2.Bucket(auth, 'oss-ap-southeast-1.aliyuncs.com', 'aistormy2023')
+oss_url_prefix = "https://aistormy2023.oss-ap-southeast-1.aliyuncs.com/"
 
 logger = get_logger('./log/server.log')
 
-pool = ThreadPoolExecutor(5)
+pool = ThreadPoolExecutor(10)
 
 sql_dict = {
     "update_status":"update sd_task set status={} where id={}",
@@ -105,21 +114,24 @@ def get_undo_task_service():
     return style_add(res_list)
 
 
-def generate_thumbnail(file_name):
-    img = Image.open(f"./static/{file_name}")
-    img = img.convert('RGB')
-    fn = file_name.split('.')[0] + ".jpg"
-    img.save(f"./static/{fn}", quality=50)
+def generate_thumbnail(file_name, content):
+    img = Image.open(BytesIO(content))
+    # img = img.convert('RGB')
+    fn_jpg = file_name.split('.')[0] + ".jpg"
+    with BytesIO() as out:
+        img.save(out, quality=50, format="jpeg")
+        bucket.put_object(fn_jpg, out.getvalue())
 
 
 def collect_result_service(file, task_id):
-    file.save(f"./static/{file.filename}")
-    image_url = f"http://aistormy.com/vision/{file.filename}"
+    # file.save(f"./static/{file.filename}")
     # logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
-
-    pool.submit(generate_thumbnail, file.filename)
-
+    f= file.read()
+    bucket.put_object(file.filename, f)
+    image_url = oss_url_prefix + file.filename
     dbm.update(sql_dict["submit_result"].format(image_url, task_id))
+    pool.submit(generate_thumbnail, file.filename, f)
+
 
 
 def submit_task_service(user_name, param_dict):
