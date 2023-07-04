@@ -1,11 +1,13 @@
 from utils.db_manager import dbm
 import json
 from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
+
 from utils.log import get_logger
 
 logger = get_logger('./log/server.log')
 
-
+pool = ThreadPoolExecutor(5)
 
 sql_dict = {
     "update_status":"update sd_task set status={} where id={}",
@@ -102,15 +104,21 @@ def get_undo_task_service():
         dbm.update(sql_dict["update_status"].format(1, id))
     return style_add(res_list)
 
+
+def generate_thumbnail(file_name):
+    img = Image.open(f"./static/{file_name}")
+    img = img.convert('RGB')
+    fn = file_name.split('.')[0] + ".jpg"
+    img.save(f"./static/{fn}", quality=50)
+
+
 def collect_result_service(file, task_id):
     file.save(f"./static/{file.filename}")
     image_url = f"http://aistormy.com/vision/{file.filename}"
-    img = Image.open(f"./static/{file.filename}")
-    img = img.convert('RGB')
-    fn = file.filename.split('.')[0] + ".jpg"
-    img.save(f"./static/{fn}", quality= 50)
-
     # logger.info("collect_result: {}, image_url:{}".format(task_id, image_url))
+
+    pool.submit(generate_thumbnail, file.filename)
+
     dbm.update(sql_dict["submit_result"].format(image_url, task_id))
 
 
