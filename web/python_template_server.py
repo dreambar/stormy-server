@@ -40,6 +40,8 @@ def hello():
 @app.route('/get_cookie')
 def get_cookie():
     name = request.cookies.get('Name')
+    logger.info("name:{}".format(name))
+    # name1 = request.get()
     return name
 
 
