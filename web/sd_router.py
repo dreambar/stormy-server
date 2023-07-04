@@ -42,7 +42,8 @@ def submit_task():
     param_dict = request.get_json()
     logger.info("submit_task: {}".format(param_dict))
     user_name = param_dict['user_name']
-    isOk, msg = vision_service.check_username(user_name)
+    cookie_user_name = request.cookies.get('Name', None)
+    isOk, msg = vision_service.check_username(user_name, cookie_user_name)
     logger.info("用户验证结果:{}, {}".format(isOk, msg))
     if not isOk:
         return Response(json.dumps({'msg': msg, 'status': 1, 'data': {}}, ensure_ascii=False),

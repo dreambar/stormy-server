@@ -22,7 +22,7 @@ sql_dict = {
     "update_status":"update sd_task set status={} where id={}",
     "submit_result":"update sd_task set status=2, content='{}' where id={}",
     "user_used_count":"select count(1) from sd_task where user_name='{}' and TO_DAYS(create_time) = TO_DAYS(NOW())",
-    "has_user":"select * from wp_users where user_login='{}'",
+    "has_user":"select * from user_info where user_name='{}'",
     "submit_task":"insert into sd_task(user_name,param, status) values (%s,%s,%s)",
     "task_list":"select * from sd_task where user_name='{}' order by id desc limit 20",
     "task_query":"select * from sd_task where user_name='{}' and id={}",
@@ -31,18 +31,17 @@ sql_dict = {
 }
 
 ##这个部分后续check cookie
-def check_username(user_name):
-
-    # if user_name == "":
-    #     return False, '用户不存在，请先注册'
-    # res1 = dbm.query(sql_dict["has_user"].format(user_name))
-    # logger.info("user_true_check:{}".format(res1))
-    # if len(res1) == 0:
-    #     return False, '用户不存在，请先注册'
-    # res2 = dbm.query(sql_dict["user_used_count"].format(user_name))
-    # logger.info("user_num_check:{}".format(res2))
-    # if res2[0][0] >= 20:
-    #     return False, '您所使用的用户，今日使用次数已达上限20次, 如需大量使用请联系管理员aistormy2049@gmail.com'
+def check_username(user_name, cookie_user_name):
+    if user_name == "" or cookie_user_name == "" or user_name == None or cookie_user_name == None or cookie_user_name != user_name:
+        return False, '用户错误，请先注册'
+    res1 = dbm.query(sql_dict["has_user"].format(user_name))
+    logger.info("user_true_check:{}".format(res1))
+    if len(res1) == 0:
+        return False, '用户不存在，请先注册'
+    res2 = dbm.query(sql_dict["user_used_count"].format(user_name))
+    logger.info("user_num_check:{}".format(res2))
+    if res2[0][0] >= 100:
+        return False, '您所使用的用户，今日使用次数已达上限100次, 如需大量使用请联系管理员aistormy2049@gmail.com'
     return True, ""
 
 pos_prompt_dict = {
