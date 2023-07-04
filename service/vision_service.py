@@ -7,8 +7,17 @@ from utils.log import get_logger
 
 import oss2
 import os
-# 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
-auth = oss2.Auth('LTAI5tRAbpW9MNjDDnDAVCsq', '7RguIff46JiTrh43HkULgbXZPiIVqu')
+
+ali_user_name = ""
+ali_pwd = ""
+with open('/root/ai/config/ali.cfg', 'r') as ali_f:
+    ali_cfg = json.load(ali_f)
+    ali_user_name = ali_cfg["user_name"]
+    ali_pwd = ali_cfg["pwd"]
+
+
+
+auth = oss2.Auth(ali_user_name, ali_pwd)
 # yourEndpoint填写Bucket所在地域对应的Endpoint。以华东1（杭州）为例，Endpoint填写为https://oss-cn-hangzhou.aliyuncs.com。
 # 填写Bucket名称。
 bucket = oss2.Bucket(auth, 'oss-ap-southeast-1.aliyuncs.com', 'aistormy2023')
@@ -47,13 +56,16 @@ def check_username(user_name, cookie_user_name):
 pos_prompt_dict = {
     "default":"8k photo, RAW photo, best quality, masterpiece, photorealistic, ultra high res, intricate detail, Exquisite details and textures, physically-based rendering, award winning photography,film granularity, huge_filesize, golden ratio，CG, unity, 2k wallpaper, Amazing, official art, beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face, one lady ",
     "jpf":"<lora:FilmVelvia2:1.3>,(film grain:1.5),(analog film style:1.5), vivid color,(grainy, dimly lit:1.3), (masterpiece:1.2), best quality, high quality, (realistic), (absurdres:1.2), UHD, ultrarealistic,  portrait, full body, slim, detail face, perfect body,best illumination, professional lighting,foggy, Chromatic Aberration, ((best quality)), ((masterpiece)), ((realistic)), radiant light rays, highres, analog style, realism",
-    "hgmn":"8k photo, RAW photo, best quality, masterpiece, photorealistic, ultra high res, intricate detail, Exquisite details and textures, physically-based rendering, award winning photography,film granularity, huge_filesize, golden ratio，CG, unity, 2k wallpaper, Amazing, official art,a korean beauty,beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face",
+    "hgmn":"<lora:koreanDollLikeness:0.4>, 8k photo, RAW photo, best quality, masterpiece, photorealistic, ultra high res, intricate detail, Exquisite details and textures, physically-based rendering, award winning photography,film granularity, huge_filesize, golden ratio，CG, unity, 2k wallpaper, Amazing, official art,a korean beauty,beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face",
     "jxj":"complex 3d render ultra detailed of a beautiful porcelain profile woman android face, cyborg, robotic parts, 150 mm, beautiful studio soft light, rim light, vibrant details, luxurious cyberpunk, lace, hyperrealistic, anatomical, facial muscles, cable electric wires, microchip, elegant, beautiful background, octane render, H. R. Giger style, 8k, best quality, masterpiece, illustration, an extremely delicate and beautiful, extremely detailed ,CG ,unity ,wallpaper, (realistic, photo-realistic:1.37),Amazing, finely detail, masterpiece,best quality,official art, extremely detailed CG unity 8k wallpaper, absurdres, incredibly absurdres, robot, silver halmet, <lora:JapaneseDollLikeness_v15:0.2> <lora:koreanDollLikeness:0.2>,(full body:1.2)",
     "sbj":"8k photo, RAW photo, best quality, masterpiece, photorealistic, ultra high res, intricate detail, Exquisite details and textures, physically-based rendering, award winning photography,film granularity, huge_filesize, golden ratio，CG, unity, 2k wallpaper, Amazing, official art,best illumination, professional lighting, beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face,portrait, full body, slim, detail face, perfect body, stunning lady, perfect anatomy, realistic skin, beautiful thighs, big eyes, underboob,extremely delicate and beautiful, beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face, large breast, (full body:1.5)",
-    "jsjj":"8k photo, RAW photo, best quality, masterpiece, photorealistic, ultra high res, intricate detail, Exquisite details and textures, physically-based rendering, award winning photography,film granularity, huge_filesize, golden ratio，CG, unity, 2k wallpaper, Amazing, official art,a korean beauty,beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face, <lora:JapaneseDollLikeness_v15:0.2> <lora:koreanDollLikeness:0.2>,(sexy teacher:1.4)(office lady:1.8),full body, (blackboard:1.2), (classroom:1.2), beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face"
+    "jsjj":"(tutress, big breast),(private teacher:1.5),(sexy teacher:1.5)(office lady:2),full body, (blackboard:1.2), (classroom:1.3),8k photo, RAW photo, best quality, masterpiece, photorealistic, ultra high res, intricate detail, Exquisite details and textures, physically-based rendering, award winning photography,film granularity, huge_filesize, golden ratio，CG, unity, 2k wallpaper, Amazing, official art,a korean beauty,beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face, <lora:JapaneseDollLikeness_v15:0.2> <lora:koreanDollLikeness:0.2>, beautiful detailed nose, beautiful detailed eyes, extremely detailed eyes and face"
 }
 
-
+neg_prompt_dict = {
+    "neg_normal_text":"EasyNegative,(worst quality:2), (low quality:2), (normal quality:2), lowres,easynegative, two spaces, watermark, DeepNegative, jpeg artifacts,heavy body, bad, fat body, small hip, muscles, (4legs:1.5), (3legs:1.5), (2faces:1.5), (collected legs:1.5), (foot:2), bad legs, thick thighs, bad thighs,(Wrinkles:1.8), (short legs:1.8), extra digit, fewer digits, extra fingers, fewer digits, extra limbs,skin spots, acnes, skin blemishes, missing fingers, blurry,bad feet,cropped,poorly drawn hands,poorly drawn face,mutation,deformed, fused fingers,too many fingers,long neck,cross-eyed,mutated hands,polar lowres,bad body,bad proportions,gross proportions,text,error,missing fingers,missing arms,missing legs, age spot, glans, username,bad composition, deformed body features,paintings, sketches, grayscale, monochrome",
+    "nsfw":"naked, nude, nsfw"
+}
 neg_normal_text = "EasyNegative,(worst quality:2), (low quality:2), (normal quality:2), lowres,easynegative, two spaces, watermark, DeepNegative, jpeg artifacts,heavy body, bad, fat body, small hip, muscles, (4legs:1.5), (3legs:1.5), (2faces:1.5), (collected legs:1.5), (foot:2), bad legs, thick thighs, bad thighs,(Wrinkles:1.8), (short legs:1.8), extra digit, fewer digits, extra fingers, fewer digits, extra limbs,skin spots, acnes, skin blemishes, missing fingers, blurry,bad feet,cropped,poorly drawn hands,poorly drawn face,mutation,deformed, fused fingers,too many fingers,long neck,cross-eyed,mutated hands,polar lowres,bad body,bad proportions,gross proportions,text,error,missing fingers,missing arms,missing legs, age spot, glans, username,bad composition, deformed body features,paintings, sketches, grayscale, monochrome"
 
 
@@ -62,32 +74,32 @@ def style_add_detail(params):
     style = params["style"]
     if style == "jpf":
         params["pos_prompt"] = params["pos_prompt"]+","+ pos_prompt_dict["jpf"]
-        params["neg_prompt"] = neg_normal_text
+        params["neg_prompt"] = neg_prompt_dict["neg_normal_text"] + "," + neg_prompt_dict["nsfw"]
         params["sampler"] = "DPM++ SDE Karras"
         params["step"] = 20
     elif style == "hgmn":
         params["pos_prompt"] = params["pos_prompt"]+","+ pos_prompt_dict["hgmn"]
-        params["neg_prompt"] = neg_normal_text
+        params["neg_prompt"] = neg_prompt_dict["neg_normal_text"]
         params["sampler"] = "DPM++ SDE Karras"
         params["step"] = 20
     elif style == "jxj":
         params["pos_prompt"] = params["pos_prompt"]+","+ pos_prompt_dict["jxj"]
-        params["neg_prompt"] = neg_normal_text
+        params["neg_prompt"] = neg_prompt_dict["neg_normal_text"]
         params["sampler"] = "DPM++ SDE Karras"
         params["step"] = 33
     elif style == "sbj":
         params["pos_prompt"] = params["pos_prompt"]+","+ pos_prompt_dict["sbj"]
-        params["neg_prompt"] = neg_normal_text
+        params["neg_prompt"] = neg_prompt_dict["neg_normal_text"]
         params["sampler"] = "DPM++ SDE Karras"
         params["step"] = 20
     elif style == "jsjj":
         params["pos_prompt"] = params["pos_prompt"]+","+ pos_prompt_dict["sbj"]
-        params["neg_prompt"] = neg_normal_text
+        params["neg_prompt"] = neg_prompt_dict["neg_normal_text"]
         params["sampler"] = "DPM++ SDE Karras"
         params["step"] = 20
     else:
         params["pos_prompt"] = params["pos_prompt"]+","+ pos_prompt_dict["default"]
-        params["neg_prompt"] = neg_normal_text
+        params["neg_prompt"] = neg_prompt_dict["neg_normal_text"] + "," + neg_prompt_dict["nsfw"]
         params["sampler"] = "DPM++ SDE Karras"
         params["step"] = 20
     return params
