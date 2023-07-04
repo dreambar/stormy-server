@@ -31,7 +31,7 @@ app.register_blueprint(sd_router)
 @web_exception_handler
 def hello():
     logger.info('hello, hello, 测试接口')
-    logger.info('cookie {}'.format(request.cookies))
+    logger.info('cookie {}'.format(request.cookies.get('Name')))
 
     print('hello, hello, 测试接口')
     return Response(json.dumps({'msg': 'hello', 'status': 0, 'data': {}}), mimetype='application/json', status=200)
@@ -39,7 +39,7 @@ def hello():
 
 @app.route('/get_cookie')
 def get_cookie():
-    name = request.cookies.get('Name')
+    name = request.cookies['Name']
     logger.info("name:{}".format(name))
     # name1 = request.get()
     return Response(json.dumps({'msg': 'hello', 'status': 0, 'data': {"name":name}}), mimetype='application/json', status=200)
