@@ -42,7 +42,7 @@ def get_cookie():
     name = request.cookies.get('Name')
     logger.info("name:{}".format(name))
     # name1 = request.get()
-    return name
+    return Response(json.dumps({'msg': 'hello', 'status': 0, 'data': {"name":name}}), mimetype='application/json', status=200)
 
 
 if __name__ == "__main__":
